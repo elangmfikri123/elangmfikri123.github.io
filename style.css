@@ -1274,3 +1274,272 @@ section {
   transform: translateY(-8px);
   box-shadow: 0 6px 18px rgba(0,0,0,0.5);
 }
+
+/*--------------------------------------------------------------
+# Cursor & Interactive Effects
+--------------------------------------------------------------*/
+
+/* Efek mencerahkan saat cursor diarahkan */
+.exp-card, .skill-item, .nav-menu a, .btn-success, .social-links a {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.exp-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(77, 171, 247, 0.3);
+  background: linear-gradient(135deg, #1a3a5f, #2a4a7a);
+}
+
+.skill-item:hover {
+  transform: scale(1.1) translateY(-5px);
+  box-shadow: 0 10px 25px rgba(77, 171, 247, 0.4);
+  background: rgba(29, 113, 194, 0.3);
+}
+
+.nav-menu a:hover {
+  transform: translateX(5px);
+  background: linear-gradient(135deg, #1971c2, #4dabf7) !important;
+}
+
+.btn-success:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(77, 171, 247, 0.4);
+}
+
+.social-links a:hover {
+  transform: translateY(-3px) scale(1.1);
+}
+
+/* Efek khusus untuk foto profil */
+#hero .p-2 {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+
+#hero .p-2::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(77, 171, 247, 0.1) 0%, 
+    rgba(29, 113, 194, 0.2) 50%, 
+    rgba(77, 171, 247, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+#hero .p-2:hover::before {
+  opacity: 1;
+}
+
+#hero img {
+  transition: all 0.5s ease;
+  position: relative;
+  z-index: 2;
+}
+
+#hero .p-2:hover img {
+  transform: scale(1.05);
+  filter: brightness(1.1) contrast(1.1);
+}
+
+/* Background interaktif untuk foto */
+#hero {
+  position: relative;
+  overflow: hidden;
+}
+
+#hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(77, 171, 247, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(29, 113, 194, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(25, 113, 194, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  transition: all 0.5s ease;
+}
+
+/* Efek parallax pada background saat cursor bergerak */
+.hero-interactive-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hero-bg-element {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(77, 171, 247, 0.1) 0%, transparent 70%);
+  transition: transform 0.1s linear;
+}
+
+.bg-element-1 { width: 200px; height: 200px; top: 10%; left: 10%; }
+.bg-element-2 { width: 150px; height: 150px; top: 60%; left: 80%; }
+.bg-element-3 { width: 100px; height: 100px; top: 30%; left: 70%; }
+.bg-element-4 { width: 180px; height: 180px; top: 70%; left: 20%; }
+
+/* Custom cursor effect */
+.custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(77, 171, 247, 0.5);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: transform 0.1s ease;
+}
+
+.cursor-follower {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(77, 171, 247, 0.3);
+  pointer-events: none;
+  z-index: 9998;
+  transition: all 0.2s ease;
+}
+
+/* Hover effects untuk form */
+.contact .php-email-form input:focus,
+.contact .php-email-form textarea:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(77, 171, 247, 0.3);
+}
+
+/* Animasi subtle untuk section titles */
+.section-title h2 {
+  transition: all 0.3s ease;
+}
+
+.section-title:hover h2 {
+  transform: translateY(-3px);
+  text-shadow: 0 5px 15px rgba(77, 171, 247, 0.3);
+}
+
+/* Loading animation untuk preloader */
+#preloader:before {
+  animation: animate-preloader 1s linear infinite;
+}
+
+@keyframes animate-preloader {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Pulse animation untuk skill items */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.skill-item {
+  animation: pulse 4s infinite ease-in-out;
+}
+
+.skill-item:hover {
+  animation: none;
+}
+
+/* Gradient text effect */
+.gradient-text {
+  background: linear-gradient(135deg, #4dabf7, #a5d8ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Additional interactive styles */
+.profile-image-container {
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.profile-image-container:hover {
+  transform: perspective(1000px) rotateY(5deg) rotateX(5deg);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(77, 171, 247, 0.2);
+}
+
+.interactive-image {
+  transition: all 0.5s ease;
+  filter: grayscale(0.2);
+}
+
+.profile-image-container:hover .interactive-image {
+  filter: grayscale(0) brightness(1.1);
+  transform: scale(1.02);
+}
+
+.interactive-social {
+  position: relative;
+  overflow: hidden;
+}
+
+.interactive-social::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.interactive-social:hover::before {
+  left: 100%;
+}
+
+.interactive-btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.interactive-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1c7ed6, #339af0);
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.interactive-btn:hover::before {
+  transform: scaleX(1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .custom-cursor, .cursor-follower {
+    display: none;
+  }
+  
+  .hero-bg-element {
+    display: none;
+  }
+}

@@ -189,3 +189,181 @@
   });
 
 })(jQuery);
+
+// Interactive cursor effects
+function initCursorEffects() {
+  const cursor = document.createElement('div');
+  const cursorFollower = document.createElement('div');
+  cursor.className = 'custom-cursor';
+  cursorFollower.className = 'cursor-follower';
+  document.body.appendChild(cursor);
+  document.body.appendChild(cursorFollower);
+
+  let mouseX = 0, mouseY = 0;
+  let followerX = 0, followerY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    
+    // Update cursor position
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  });
+
+  // Smooth follower animation
+  function animateCursor() {
+    followerX += (mouseX - followerX) * 0.1;
+    followerY += (mouseY - followerY) * 0.1;
+    
+    cursorFollower.style.left = followerX - 20 + 'px';
+    cursorFollower.style.top = followerY - 20 + 'px';
+    
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+
+  // Interactive background for hero section
+  function initInteractiveBackground() {
+    const heroSection = document.getElementById('hero');
+    if (!heroSection) return;
+
+    const bgElements = [];
+    const elementCount = 4;
+
+    for (let i = 1; i <= elementCount; i++) {
+      const element = document.createElement('div');
+      element.className = `hero-bg-element bg-element-${i}`;
+      heroSection.appendChild(element);
+      bgElements.push(element);
+    }
+
+    document.addEventListener('mousemove', (e) => {
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+      
+      bgElements.forEach((element, index) => {
+        const moveX = (clientX - innerWidth / 2) * (0.02 + index * 0.01);
+        const moveY = (clientY - innerHeight / 2) * (0.02 + index * 0.01);
+        
+        element.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      });
+    });
+  }
+
+  // Hover effects for interactive elements
+  function initHoverEffects() {
+    const interactiveElements = document.querySelectorAll('.exp-card, .skill-item, .btn-success, .nav-menu a');
+    
+    interactiveElements.forEach(element => {
+      element.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'scale(1.5)';
+        cursor.style.background = 'rgba(77, 171, 247, 0.8)';
+        cursorFollower.style.transform = 'scale(1.2)';
+        cursorFollower.style.borderColor = 'rgba(77, 171, 247, 0.6)';
+      });
+      
+      element.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'scale(1)';
+        cursor.style.background = 'rgba(77, 171, 247, 0.5)';
+        cursorFollower.style.transform = 'scale(1)';
+        cursorFollower.style.borderColor = 'rgba(77, 171, 247, 0.3)';
+      });
+    });
+
+    // Special effect for profile image
+    const profileImage = document.querySelector('#hero img');
+    if (profileImage) {
+      profileImage.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'scale(2)';
+        cursor.style.background = 'rgba(161, 216, 255, 0.8)';
+      });
+      
+      profileImage.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'scale(1)';
+        cursor.style.background = 'rgba(77, 171, 247, 0.5)';
+      });
+    }
+  }
+
+  // Initialize all effects when DOM is ready
+  $(document).ready(function() {
+    initInteractiveBackground();
+    initHoverEffects();
+    
+    // Add subtle animation to skill items on scroll
+    $('.skill-item').waypoint(function() {
+      $(this).addClass('animated');
+    }, {
+      offset: '80%'
+    });
+  });
+}
+
+// Initialize cursor effects when window loads
+$(window).on('load', function() {
+  initCursorEffects();
+});
+
+// Smooth scrolling with parallax effect
+$(document).on('click', '.nav-menu a, .scrollto', function(e) {
+  if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+    var target = $(this.hash);
+    if (target.length) {
+      e.preventDefault();
+
+      var scrollto = target.offset().top;
+
+      $('html, body').animate({
+        scrollTop: scrollto
+      }, 1500, 'easeInOutExpo', function() {
+        // Add subtle animation to the target section
+        target.addClass('section-highlight');
+        setTimeout(() => {
+          target.removeClass('section-highlight');
+        }, 2000);
+      });
+
+      if ($(this).parents('.nav-menu, .mobile-nav').length) {
+        $('.nav-menu .active, .mobile-nav .active').removeClass('active');
+        $(this).closest('li').addClass('active');
+      }
+
+      if ($('body').hasClass('mobile-nav-active')) {
+        $('body').removeClass('mobile-nav-active');
+        $('.mobile-nav-toggle i').toggleClass('icofont-navigation-menu icofont-close');
+      }
+      return false;
+    }
+  }
+});
+
+// Add CSS for section highlight
+const style = document.createElement('style');
+style.textContent = `
+  .section-highlight {
+    animation: highlightSection 2s ease;
+  }
+  
+  @keyframes highlightSection {
+    0% { background: transparent; }
+    50% { background: rgba(77, 171, 247, 0.05); }
+    100% { background: transparent; }
+  }
+  
+  .animated {
+    animation: fadeInUp 0.6s ease;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
+document.head.appendChild(style);
